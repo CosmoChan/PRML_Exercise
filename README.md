@@ -1,4 +1,3 @@
-# PRML_Exercise
 # 模式识别课程PRML算法Matlab实现练习
 希望能做到:
 * 与PRML符号一致
