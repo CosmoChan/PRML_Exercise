@@ -1,4 +1,10 @@
-function [train, test] = load_mnist(binary_digits = 1)
+function [train, test] = load_mnist(binary_digits, y_1, y_2)
+%The default case
+if nargin == 0
+    binary_digits = true;
+    y_1 = 0;
+    y_2 = 1;
+end
 addpath ../datasets
   % Load the training data
   X=loadMNISTImages('train-images-idx3-ubyte');
@@ -6,8 +12,8 @@ addpath ../datasets
 
   if (binary_digits)
     % Take only the 0 and 1 digits
-    X = [ X(:,y==0), X(:,y==1) ];
-    y = [ y(y==0), y(y==1) ];
+    X = [ X(:,y==y_1), X(:,y==y_2) ];
+    y = [ y(y==y_1), y(y==y_2) ];
   end
 
   % Randomly shuffle the data
@@ -31,8 +37,8 @@ addpath ../datasets
 
   if (binary_digits)
     % Take only the 0 and 1 digits
-    X = [ X(:,y==0), X(:,y==1) ];
-    y = [ y(y==0), y(y==1) ];
+    X = [ X(:,y==y_1), X(:,y==y_2) ];
+    y = [ y(y==y_1), y(y==y_2) ];
   end
 
   % Randomly shuffle the data
