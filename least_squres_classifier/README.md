@@ -16,7 +16,7 @@ datasets文件夹的loadMNISTImages.m和loadMNISTLabels.m文件中分别给出�
 # 训练集测试集载入
 本文件夹中的load_mnist文件可加载MNIST训练集和测试集, 把加载的图像放入矩阵X中, 使得第i张图像的第j个像素是X中的元素$X_{ji}$. 同时把标签载入变量y中. 此外, 还对像素灰度做了简单的标准化工作. load_mnist函数接受一个参数binary_digits, 这是一个bool值, 若为真则加载的数据只使用了0, 1两个数字, 若为false则加载0-9所有数字. 默认为true.
 键入命令[train, test] = load_mnist
-即可载入只包含0, 1 的训练集与测试集___
+即可载入只包含0, 1 的训练集与测试集
 
 # mnist
 直接键入命令mnist即可, 若程序正常, 会显示accuracy = 99.38的结果(可能稍有不同)
