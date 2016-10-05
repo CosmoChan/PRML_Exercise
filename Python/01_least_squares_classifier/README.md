@@ -9,12 +9,15 @@
 ## python 环境中运行
 
 ```python
-import lsc
-lsc.handwritingClassTest()
+import LSC_version01.py
+LSC_version01.py.handwritingClassTest()
+
+import LSC_version02.py
 ```
 ## cmd或终端运行
 
 ```shell
-python lsc.py
+python LSC_version01.py
+python LSC_version02.py
 ```
 
