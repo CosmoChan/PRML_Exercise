@@ -1,9 +1,10 @@
+# -*-coding:utf-8 -*-
 import numpy as np
 import pandas as pd
 import os
 import matplotlib
 
-os.chdir('trainingDigits')   #set workspace
+os.chdir('../../datasets/trainingDigits')   #set workspace
 goal = [0,1,2,3,4,5,6,7,8,9]    #goal (the"a")
 
 train_data = []         #training dataset
@@ -15,7 +16,7 @@ for j in goal:
         print("file:",filename)
         try:
             b = open(filename,'r')          # open the data file,put the data into b
-        except FileNotFoundError:           # if the data file can't be found,stop getting data
+        except:           # if the data file can't be found,stop getting data
             break
 
         c = b.read()                        #io,read b's data into c,in string
@@ -57,7 +58,7 @@ train_data_output = train_data[:,-10:]                      #get the output of t
 W = np.linalg.pinv(np.matrix(train_data_input).T*np.matrix(train_data_input))*np.matrix(train_data_input).T*np.matrix(train_data_output)
 
 
-os.chdir('testDigits')
+os.chdir('../../datasets/testDigits')
 goal = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 test_data = []
 for j in goal:
@@ -68,7 +69,7 @@ for j in goal:
         print("file:",filename)
         try:
             b = open(filename,'r')
-        except FileNotFoundError:
+        except:
             break
 
         c = b.read()
