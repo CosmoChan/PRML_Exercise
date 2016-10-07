@@ -1,4 +1,4 @@
-# PRML LeastSquares Classifier
+# PRML Least Squares Classifier
 
 ## 数据:
 - 1934个训练样本
@@ -9,10 +9,10 @@
 ## python 环境中运行
 
 ```python
-import LSC_version01.py
-LSC_version01.py.handwritingClassTest()
+import LSC_version01
+LSC_version01.handwritingClassTest()
 
-import LSC_version02.py
+import LSC_version02
 ```
 ## cmd或终端运行
 
