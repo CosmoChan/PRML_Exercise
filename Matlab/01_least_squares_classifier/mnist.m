@@ -15,7 +15,7 @@ clc;
 %we use 0 and 1 as default.
 [train, test] = load_mnist(true, 0, 1);
 
-%1-of-K presentation of so-called "One-Hot-Encoding"
+%1-of-K presentation or so-called "One-Hot-Encoding"
 T = oneOfK(train.y);
 
 %Training the model:Calculating W
