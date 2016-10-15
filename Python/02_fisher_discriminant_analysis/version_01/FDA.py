@@ -54,10 +54,43 @@ def FDA_train(X_1, X_2):
 
     y_1 = np.mat(X_1) * w_star
     y_2 = np.mat(X_2) * w_star
-    m_1_tilde = sum(y_1) / float(n_1)
-    m_2_tilde = sum(y_2) / float(n_2)
+    m_1_tilde = y_1.sum() / float(n_1)
+    m_2_tilde = y_2.sum() / float(n_2)
     w_0 = -(m_1_tilde + m_2_tilde) / float(2)
 
 
     return w_star, w_0
-#w_0 is a matrix
+
+def FDA_test(X_test, w_star, w_0):
+    """Fisher Discriminant Analysis test
+
+    The FDA_test projects the data points stored in X_test
+    to the direction presented by w_star and compare
+    the value y on the new axis with the
+    specified threshold w_0, if y >= w_0 then the data
+    point is classified into class 1, else class 2
+
+    Parameters
+    ----------
+    X_test : array-like, shape(n_samples, n_features)
+             The testing data
+    w_star : array-like, shape(n_features, )
+             The best project direction w* under the
+             Fisher's criterion
+    w_0    : float
+             The classification thredshold based on
+             w_0 = -(1/2)(m_1_tilde + m_2_tilde)
+
+    Returns
+    -------
+    y_pred: array-like, shape(n_samples,k_classes)
+             y_pred contains the class labels of each sample
+             represented by 1-of-K format.(one hot encode)
+    """
+
+    y_proj = X_test * w_star
+    y_1 = y_proj >= w_0
+    y_2 = y_proj < w_0
+    y_pred = np.hstack((y_1, y_2)).astype(int)
+
+    return y_pred
