@@ -52,6 +52,7 @@ def FDA_train(X_1, X_2):
 
     w_star = pinv(S_w) * np.mat(m_1 - m_2).T
 
+    #Calculating the thredshold w_0
     y_1 = np.mat(X_1) * w_star
     y_2 = np.mat(X_2) * w_star
     m_1_tilde = y_1.sum() / float(n_1)
@@ -89,6 +90,8 @@ def FDA_test(X_test, w_star, w_0):
     """
 
     y_proj = X_test * w_star
+
+    #1-of-K code scheme
     y_1 = y_proj >= w_0
     y_2 = y_proj < w_0
     y_pred = np.hstack((y_1, y_2)).astype(int)

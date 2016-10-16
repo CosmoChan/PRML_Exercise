@@ -39,25 +39,10 @@ def load_mnist(only_binary = True, y_1 = 0, y_2 = 1):
 
         X_test = [X_test[i] for i in xrange(n_test) if (y_test[i] == y_1) or (y_test[i] == y_2)]
         y_test = [y_test[i] for i in xrange(n_test) if (y_test[i] == y_1) or (y_test[i] == y_2)]
-    """
-    n_train, m_train = np.shape(X_train)
-    n_test, m_test = np.shape(X_test)
 
-    X_train_mean = np.mean(X_train, axis = 1)
-    X_test_mean = np.mean(X_test, axis = 1)
-    train_mean_mat = np.array([X_train_mean, ] * m_train).T
-    test_mean_mat = np.array([X_test_mean, ] * m_test).T
-
-    X_train_std = np.mean(X_train, axis = 1)
-    X_test_std = np.mean(X_test, axis = 1)
-    train_std_mat = np.array([X_train_std, ] * m_train).T + 1e-6
-    test_std_mat = np.array([X_test_std, ] * m_test).T + 1e-6
-
-    X_train = (X_train - train_mean_mat) / train_std_mat
-    X_test = (X_test - test_mean_mat) / test_std_mat
-    """
     X_train = normalization(X_train)
     X_test = normalization(X_test)
+
     return X_train, y_train, X_test, y_test
 
 def normalization (X):
