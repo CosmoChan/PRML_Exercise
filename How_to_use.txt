@@ -1,9 +1,11 @@
-1、由于数据较大，下载这个文件夹后请自行将之前给的数据集：
+1、下载这个文件夹后请自行将之前给的数据集：
 t10k-images-idx3-ubyte
 t10k-labels-idx1-ubyte
 train-images-idx3-ubyte
 train-labels-idx1-ubyte
 （在模式识别Q群第一次发布的LSC算法的文件夹中data1/datasets/里面）
-放入datasets文件夹下。不然load_mnist无法运行。
+放入datasets这个文件下面。
 
-2、之后每一次的算法实现都会在这个文件夹中更新，所以下一次下载这个文件夹时这个文件夹可以删除，我们会保留之前的算法实现。
+2、这个文件夹下点开MATLAB文件夹可以找到各算法实现的MATLAB的挖空代码，同理Python文件夹。
+
+3、之后每一次的算法实现都会在这个文件夹中更新，所以下一次下载这个文件夹时这个文件夹可以删除，我们会保留之前的算法实现。

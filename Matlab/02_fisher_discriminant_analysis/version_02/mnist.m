@@ -1,4 +1,5 @@
 clear;clc;
+addpath ../../../datasets
 
 %We use load_mnist to load image data of number 6 and 8.
 [ train, test ] = load_mnist( true, 6, 8 );
