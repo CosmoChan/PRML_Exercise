@@ -1,7 +1,10 @@
 function [ y ] = FDA_te( test_X, W, w0 )
+% This function is to classify the image data into number 6 or 8.
+% Input: test_X is the dataset of the testing data.
+%        W is the parameter of FDA and the output of FDA.
+%        w0 is the threshold.
 
-y0 = W' * one_of_k( test_X, true );
-y = y0;
+y = W' * addbias( test_X, true );
 y( y > w0 ) = 6;
 y( y < w0 ) = 8;
 
