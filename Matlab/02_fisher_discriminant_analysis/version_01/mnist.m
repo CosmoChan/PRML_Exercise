@@ -1,7 +1,9 @@
 %close all;
 %clear;
 %clc;
-tic
+
+addpath ../../../datasets
+
 %% 数据导入和初步处理
 %导入训练数据，X_train是一个784*60000的矩阵，T_train是一个1*60000的向量
 X_train=loadMNISTImages('train-images-idx3-ubyte');
