@@ -1,6 +1,7 @@
-close all;
-clear;
-clc;
+%close all;
+%clear;
+%clc;
+tic
 %% 数据导入和初步处理
 %导入训练数据，X_train是一个784*60000的矩阵，T_train是一个1*60000的向量
 X_train=loadMNISTImages('train-images-idx3-ubyte');
@@ -26,8 +27,8 @@ X_test = [ones(1,size(X_test,2));X_test]';
 
 %对测试数据进行乱序处理
 Index = randperm(length(T_test));
- T_test=T_test(Index);
- X_test=X_test(Index,:);
+T_test=T_test(Index);
+X_test=X_test(Index,:);
 
 %计算测试数据的数量
 n = size(T_test,2);
@@ -39,5 +40,11 @@ n = size(T_test,2);
 %使用训练数据得到模型参数W和w计算测试数据的预测标签，得到的T_pred是一个1932*1的列向量
 T_pred = FDA_te(X_test,W,w);
 
-%计算测试数据在模型中的准确率。其中因为预测的标签值不是6就8。
-accuracy = 1-sum(abs(T_pred'-T_test))/(2*n)
+%计算测试数据在模型中的准确率。其中因为预测的标签值不是6就8，如果预测正确6-6=0,8-8=0，如果预测错误abs（6-8）=2，因此除以2*n
+%----------------------your code here------------------------
+
+
+
+
+
+%------------------------------------------------------------
