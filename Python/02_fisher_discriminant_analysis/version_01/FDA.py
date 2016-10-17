@@ -50,14 +50,38 @@ def FDA_train(X_1, X_2):
 
     S_w = S_1 + S_2
 
-    w_star = pinv(S_w) * np.mat(m_1 - m_2).T
+    #############################################
+    #
+    #Calculating the best project direction w^*
+    #
+    #Hint:
+    #   you can use "pinv" to calculate the inverse
+    #   matrix
+    #   Use np.mat(object) to change object into
+    #   matrix
+    #
+    #Note:
+    #   m_1, m_2 are row vectors,please care about
+    #   the dimension
+    #
+    #Your code goes here
 
-    #Calculating the thredshold w_0
+
+    #############################################
+
     y_1 = np.mat(X_1) * w_star
     y_2 = np.mat(X_2) * w_star
     m_1_tilde = y_1.sum() / float(n_1)
     m_2_tilde = y_2.sum() / float(n_2)
-    w_0 = -(m_1_tilde + m_2_tilde) / float(2)
+
+    #Calculating the thredshold w_0
+    ############################################
+    #Calculating the thredshold w_0
+    #
+    #Your code goes here:
+
+
+    ###########################################
 
 
     return w_star, w_0

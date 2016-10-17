@@ -19,8 +19,8 @@ import numpy as np
 #          The features of test set
 #y_test  : array, shape(n_samples,) = (10000,)
 ################################################################
-y_1 = 6
-y_2 = 8
+#y_1 = 6
+#y_2 = 8
 
 X_train, y_train, X_test, y_test = load_mnist(only_binary = True, y_1 = y_1, y_2 = y_2)#
 
@@ -38,6 +38,12 @@ y_0 = (np.mat(y_test) == y_1).astype(int).T
 y_1 = (np.mat(y_test) == y_2).astype(int).T
 y_test = np.hstack((y_0, y_1))
 
+##########################################################
+#
 #Calculating the error rate
-error_rate = abs(y_pred - y_test).sum() / (2. *len(y_test))
+#
+#Your code goes here:
+
+
+##########################################################
 print ("The error rate is: %.4f"%error_rate)
