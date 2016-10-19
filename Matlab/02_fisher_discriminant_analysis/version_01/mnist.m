@@ -13,8 +13,8 @@ T_train=loadMNISTLabels('train-labels-idx1-ubyte')';
 X_train = [ X_train(:,T_train==6), X_train(:,T_train==8) ];
 T_train = [ T_train(T_train==6), T_train(T_train==8) ];
     
-%对选择的训练数据加入偏置变量1，X_train是一个11769*785的矩阵
-X_train = [ones(1,size(X_train,2));X_train]';
+%对选择的训练数据加入偏置变量1，X_train是一个11769*784的矩阵
+X_train = X_train';
 
 %导入测试数据，X_test是一个784*10000的矩阵，T_test是一个10000*1的向量
 X_test=loadMNISTImages('t10k-images-idx3-ubyte');
@@ -24,8 +24,8 @@ T_test=loadMNISTLabels('t10k-labels-idx1-ubyte');
 X_test = [ X_test(:,T_test==6), X_test(:,T_test==8) ];
 T_test = [ T_test(T_test==6)', T_test(T_test==8)' ];
 
-%对选择的测试数据加入偏置变量1，X_test是一个1932*785的矩阵
-X_test = [ones(1,size(X_test,2));X_test]';
+%对选择的测试数据加入偏置变量1，X_test是一个1932*784的矩阵
+X_test = X_test';
 
 %对测试数据进行乱序处理
 Index = randperm(length(T_test));
