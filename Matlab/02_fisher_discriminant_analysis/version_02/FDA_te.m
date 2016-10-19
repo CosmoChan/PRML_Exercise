@@ -4,7 +4,7 @@ function [ y ] = FDA_te( test_X, W, w0 )
 %        W is the parameter of FDA and the output of FDA.
 %        w0 is the threshold.
 
-y = W' * addbias( test_X, true );
+y = W' * test_X;
 y( y > w0 ) = 6;
 y( y < w0 ) = 8;
 

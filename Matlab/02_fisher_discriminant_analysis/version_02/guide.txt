@@ -1,0 +1,7 @@
+由于偏秩是不需要的，因此在此更新版本中：
+1、删去了addbias.m文件。
+2、在mnist文件中，将第7、8行改为
+	train_X_6 = train.X(:,train.y == 6); 
+	train_X_8 = train.X(:,train.y == 8); 
+3、在FDA_te.m中，将第7行改为
+	y = W' * test_X;
