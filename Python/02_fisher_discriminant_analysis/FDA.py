@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+from __future__ import division
 import numpy as np
 from numpy.linalg import pinv
 import time
@@ -81,8 +82,8 @@ def FDA_train(X_1, X_2):
 
     y_1 = X_1.dot(w_star)
     y_2 = X_2.dot(w_star)
-    m_1_tilde = y_1.sum() / float(n_1)
-    m_2_tilde = y_2.sum() / float(n_2)
+    m_1_tilde = y_1.sum() / n_1
+    m_2_tilde = y_2.sum() / n_2
 
     #Calculating the thredshold w_0
     ############################################
@@ -91,7 +92,7 @@ def FDA_train(X_1, X_2):
     #Your code goes here:
 
 
-    w_0 = -(m_1_tilde + m_2_tilde) / float(2)
+    w_0 = -(m_1_tilde + m_2_tilde) / 2
     ###########################################
 
     return w_star, w_0

@@ -1,30 +1,28 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from __future__ import print_function
+from __future__ import print_function, division
 from load_dataset import load_mnist
 from FDA import FDA_train, FDA_test
 import numpy as np
 import time
 
-################################################################
-#Loading data
-#
-#Variables
-#---------
-#X_train : list of lists, (n_samples, n_features) = (60000,784)
-#          The features of training set
-#y_train : array, shape(n_samples,) = (60000,)
-#          The labels of training set range from 0 to 9
-#X_test  : list of lists, (n_sampels, n_features) = (10000, 784)
-#          The features of test set
-#y_test  : array, shape(n_samples,) = (10000,)
-###############################################################
 
-y_1 = 0
-y_2 = 1
+y_1 = 6
+y_2 = 8
 
+"""Loading data
 
+Variables
+---------
+X_train : list of lists, (n_samples, n_features) = (60000,784)
+          The features of training set
+y_train : array, shape(n_samples,) = (60000,)
+          The labels of training set range from 0 to 9
+X_test  : list of lists, (n_sampels, n_features) = (10000, 784)
+          The features of test set
+y_test  : array, shape(n_samples,) = (10000,)
+"""
 X_train, y_train, X_test, y_test = load_mnist(only_binary = True, y_1 = y_1, y_2 = y_2)#
 
 #Separating X_train according to class label
@@ -47,7 +45,7 @@ y_test = np.hstack((y_0, y_1)).astype(int)
 #
 #Your code goes here:
 
-error_rate = abs(y_pred - y_test).sum() / (2. *len(y_test))
+error_rate = abs(y_pred - y_test).sum() / (2 *len(y_test))
 
 ##########################################################
 print ("The error rate is: %.4f"%error_rate)

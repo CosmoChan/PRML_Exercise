@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+from __future__ import division
 from mnist import MNIST
 import pandas as pd
 import numpy as np
