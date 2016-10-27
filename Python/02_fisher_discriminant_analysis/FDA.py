@@ -3,6 +3,7 @@
 
 import numpy as np
 from numpy.linalg import pinv
+import time
 
 def FDA_train(X_1, X_2):
     """Fisher's Discriminant Analysis training
@@ -39,15 +40,23 @@ def FDA_train(X_1, X_2):
 
     m_1 = np.mean(X_1, axis = 0)
     m_2 = np.mean(X_2, axis = 0)
+    M_1 = np.array([m_1,]*n_1)
+    M_2 = np.array([m_2,]*n_2)
 
-    S_1 = np.zeros((d_1, d_1))
-    for i in range(n_1):
-        S_1 += np.mat(X_1[i] - m_1).T * np.mat(X_1[i] - m_1)
+    S_1 = ((X_1 - M_1).T).dot(X_1 - M_1)
+    S_2 = ((X_2 - M_2).T).dot(X_2 - M_2)
+
+    """
+    for i in xrange(n_1):
+        x, m = X_1[i].reshape(d_1, 1), m_1.reshape(d_1, 1)
+        S_1 += (x - m).dot((x - m).T)
+
 
     S_2 = np.zeros((d_2, d_2))
-    for i in range(n_2):
-        S_2 += np.mat(X_2[i] - m_2).T * np.mat(X_2[i] - m_2)
-
+    for i in xrange(n_2):
+        x, m = X_2[i].reshape(d_2, 1), m_2.reshape(d_2, 1)
+        S_2 += (x - m).dot((x - m).T)
+    """
     S_w = S_1 + S_2
 
     #############################################
@@ -66,11 +75,12 @@ def FDA_train(X_1, X_2):
     #
     #Your code goes here
 
+    w_star = pinv(S_w).dot((m_1 - m_2).T)
 
     #############################################
 
-    y_1 = np.mat(X_1) * w_star
-    y_2 = np.mat(X_2) * w_star
+    y_1 = X_1.dot(w_star)
+    y_2 = X_2.dot(w_star)
     m_1_tilde = y_1.sum() / float(n_1)
     m_2_tilde = y_2.sum() / float(n_2)
 
@@ -81,8 +91,8 @@ def FDA_train(X_1, X_2):
     #Your code goes here:
 
 
+    w_0 = -(m_1_tilde + m_2_tilde) / float(2)
     ###########################################
-
 
     return w_star, w_0
 
@@ -113,7 +123,7 @@ def FDA_test(X_test, w_star, w_0):
              represented by 1-of-K format.(one hot encode)
     """
 
-    y_proj = X_test * w_star
+    y_proj = X_test.dot(w_star)[:, np.newaxis]
 
     #1-of-K code scheme
     y_1 = y_proj >= w_0
