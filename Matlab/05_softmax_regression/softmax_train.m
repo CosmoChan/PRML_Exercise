@@ -33,7 +33,7 @@ for iterations = 1 : 15
     
     for j = 1 : K
         %计算第j类的参数w_j
-        Gradient( 1 + (j-1)*d : j*d ) = sum( bsxfun( @times , X' , Delta( : , j )') , 2 );       
+        Gradient( 1 + (j-1)*d : j*d ) = X' * Delta( :, j ); 
     end
     
     %梯度向量中加入正则化项
