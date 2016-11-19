@@ -21,34 +21,29 @@ W = rand( d * K , 1 )*0.01;%%
 
 %迭代步骤，最大迭代次数为15
 for iterations = 1 : 15
-
+    
     %用softmax函数估计每个样本属于K类中每一类的概率，模型参数W是d*K行1列的向量
     Y = softmax_hypothesis_function( X , W , 1 );
 
     %将概率矩阵和分类标签矩阵作差
     Delta = Y - T;
 
-    %计算K类中，逐类的梯度向量，拼接成一个d*k行的梯度列向量
-    Gradient = zeros( d * K , 1 );
-    
-    for j = 1 : K
-        %计算第j类的参数w_j
-        Gradient( 1 + (j-1)*d : j*d ) = X' * Delta( :, j ); 
-    end
-    
+    %计算K类中，每类的梯度向量，将d行K列的矩阵转换成d*k行1列的梯度列向量
+    Gradient = X' * Delta;
+    Gradient = reshape( Gradient , K*d , 1);
+
     %梯度向量中加入正则化项
     Gradient = Gradient + lambda * W;
-    
+
     %构造Hessian矩阵的K×K个子块，并拼接成d*K行d*K列的Hessian矩阵
     Hessian = zeros( K * d );
     for k = 1 : K   
-        for j = 1 : K         
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %代码填在下面空白处
+        for j = 1 : K
             
-
+            R = Y( : , k ) .* ( (k==j) - Y( : , j ) );
             
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            Sub_hessian = bsxfun( @times , X' , R' ) * X;
+            
             %将第k,j个子块存入Hessian的相应位置
             Hessian( 1+(k-1)*d : k*d , 1+(j-1)*d : j*d ) =  Sub_hessian;
             
@@ -58,13 +53,9 @@ for iterations = 1 : 15
     %Hessian矩阵中加入正则化项
     Hessian = Hessian + lambda * eye( K * d );
     
-    %更新模型参数列向量W。
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %代码下面空白处，提示：求逆时用A\B代替inv(A)*B
-
+    %更新模型参数列向量W
+    W = W - Hessian \ Gradient;
     
-    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %迭代终止判断，如梯度Gradient的二范数接近0则停止迭代
     if norm( Gradient ) < 200
         break;        
