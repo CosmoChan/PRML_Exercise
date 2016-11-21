@@ -13,29 +13,25 @@ function Wb = NN_train( X , T , config , activations , derivatives , max_iterati
 %    Wb 参数集合，包含各层的W集合和b集合
 
 L = length( config );                 %取从输入层到输出层的总层数
-
 [ N , ~ ] = size( X );                %取样本大小
-
 eta = eta / N;                        %将梯度下降步长除以样本大小N
+
+activations = [ {[]} , activations ]; %由于输入层不设置激活函数，前面添加空元胞以占位
+derivatives = [ {[]} , derivatives ]; %同上
 
 A = cell( L , 1 );                    %存放各层的单元输入矩阵，其中第一个仅用来占位
 Z = cell( L , 1 );                    %存放各层的单元激活输出矩阵
 Delta = cell( L , 1 );                %存放各层的残差矩阵，其中第一个仅用来占位
 errors = zeros( max_iterations , 1 ); %设置数组errors，用于记录每次的迭代的损失函数值
-Wb_LIST = cell( max_iterations , 1 ); %设置一个元胞数组，记录每次迭代的系数集合 W,b
-
-activations = [ {[]} , activations ]; %由于输入层不设置激活函数，前面添加空元胞以占位
-derivatives = [ {[]} , derivatives ];
-
-                                      %初始化各层参数
+                                      
 W = cell( L - 1 , 1 );                %存放前L-1层的系数矩阵 W
 b = cell( L - 1 , 1 );                %存放前L-1层的偏置系数向量 b
-for l = 1 : L-1
+for l = 1 : L-1                       %初始化各层参数 W b
     W{ l } = 0.1 * randn( config( l ) , config( l + 1 ) );  
     b{ l } = 0.1 * randn( 1 , config( l + 1 ));
 end
 
-Z{ 1 } = X;                           %设置第一层单元的输出矩阵为X
+Z{ 1 } = X;                           %设置第一层单元的输出矩阵 Z 为 X
 
 for iterations = 1 : max_iterations   %开始迭代
 
