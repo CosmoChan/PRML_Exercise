@@ -5,10 +5,10 @@ function Wb = NN_train( X , T , config , activations , derivatives , max_iterati
 %    X 是样本的输入矩阵，每行是一个样例
 %    T 是样本的输出矩阵，每行是一个样例
 %    config 是一个向量，向量的维数控制神经网络的层数L，其各元素大小控制各层的但单元数量
-%    activations 是包含 L-1 个 激活函数句柄 的元胞，依此对应第2,3,...,L层的激活函数
-%    dervatives 是包含 L-1 个与激活函数相应的 导函数的句柄 的元胞
-%    max_iterations 正整数，是最大迭代次数，本程序用最大迭代次数来控制迭代停止
-%    eta 非负数，为学习速率。若设置太大，则损失函数将发生震荡，难以收敛，若太小，则学习效率低
+%    activations 是一个元胞数组，包含 L-1 个 激活函数句柄，依此对应第2,3,...,L层的激活函数
+%    dervatives 是一个元胞数组，包含 L-1 个与激活函数相应的 导函数的句柄
+%    max_iterations 是一个正整数，是最大迭代次数，本程序用最大迭代次数来控制迭代停止
+%    eta 是一个非负数，为学习速率。若设置太大，则损失函数将发生震荡，难以收敛，若太小，则学习效率低
 % 输出：
 %    Wb 参数集合，包含各层的W集合和b集合
 
@@ -33,7 +33,7 @@ end
 
 Z{ 1 } = X;                           %设置第一层单元的输出矩阵 Z 为 X
 
-for iterations = 1 : max_iterations   %开始迭代
+for iterations = 1 : max_iterations   %开始迭代，完成指定次数之后跳出循环
 
     iterations                                %输出迭代次数
 
@@ -43,16 +43,13 @@ for iterations = 1 : max_iterations   %开始迭代
         
         Z{ l + 1 } = activations{ l + 1 }( A{ l + 1 } );
         
-    end
+    end                               %网络输出值为 Y := Z{ L }
     
-    Y = Z{ L };                               %取输出结果
+    Delta{ L } = derivatives{ L }( A{ L } ) .* ( Z{ L } - T );%计算最后一层的残差矩阵
     
-    Delta{ L } = Y - T;                       %计算最后一层的残差矩阵
-
-    errors( iterations ) = norm( Delta{ L } );%计算误差函数
+    errors( iterations ) = sum(sum(( Z{ L } - T ).^2 )) / N;  %计算损失函数
     
     errors( iterations )                      %输出损失函数
-
     
     for l = L-1 : -1 : 1                      %从第L-1到第1层，进行误差反向传播
         

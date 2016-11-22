@@ -5,7 +5,7 @@ function result = mnist_NN( digits , config , activations , derivatives , max_it
 %    digits 是一个数字的向量，包含进行分类的目标数字
 %    config 是一个向量，向量的维数控制神经网络的层数L，其各元素大小控制各层的但单元数量
 %    activations 元胞数组，包含 L-1 个激活函数句柄，依此对应第2,3,...,L层的激活函数
-%    dervatives 元胞数组，包含 L-2 个导函数的句柄，依此对应第2,3,...,L-1层的激活函数
+%    dervatives 元胞数组，包含 L-1 个导函数的句柄，依此对应第2,3,...,L层的激活函数
 %    max_iterations 正整数，是最大迭代次数，本程序用最大迭代次数来控制迭代停止
 %    eta 非负数，为学习速率。若设置太大，则损失函数将发生震荡，难以收敛，若太小，则学习效率低
 % 输出：
