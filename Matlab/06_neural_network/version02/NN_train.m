@@ -28,7 +28,7 @@ W = cell( L - 1 , 1 );                %存放前L-1层的系数矩阵 W
 b = cell( L - 1 , 1 );                %存放前L-1层的偏置系数向量 b
 for l = 1 : L-1                       %初始化各层参数 W b
     W{ l } = 0.1 * randn( config( l ) , config( l + 1 ) );  
-    b{ l } = 0.1 * randn( 1 , config( l + 1 ));
+    b{ l } = 0.1 * randn( 1 , config( l + 1 ) );
 end
 
 Z{ 1 } = X;                           %设置第一层单元的输出矩阵 Z 为 X
@@ -39,7 +39,7 @@ for iterations = 1 : max_iterations   %开始迭代，完成指定次数之后跳出循环
 
     for l = 1 : L-1                           %从1到L-1层，进行前向传播
         
-        A{ l + 1 } = bsxfun( @plus , Z{ l } * W{ l } , b{ l });
+        A{ l + 1 } = bsxfun( @plus , Z{ l } * W{ l } , b{ l } );
         
         Z{ l + 1 } = activations{ l + 1 }( A{ l + 1 } );
         
@@ -47,7 +47,7 @@ for iterations = 1 : max_iterations   %开始迭代，完成指定次数之后跳出循环
     
     Delta{ L } = derivatives{ L }( A{ L } ) .* ( Z{ L } - T );%计算最后一层的残差矩阵
     
-    errors( iterations ) = sum(sum(( Z{ L } - T ).^2 )) / N;  %计算损失函数
+    errors( iterations ) = sum(sum(( Z{ L } - T ).^2 )) / ( 2 * N );  %计算损失函数
     
     errors( iterations )                      %输出损失函数
     

@@ -20,12 +20,12 @@ function result = mnist_NN( digits , config , activations , derivatives , max_it
 %    隐藏层和输出层的激活函数为sigmoid函数，隐藏层导函数为diff_sigmoid函数。进行50次的迭代，
 %    学习速率为0.7，程序调用的示例如下
 %
-%    >> Activations = { @sigmoid , @sigmoid };
-%    >> Dervatives = { @diff_sigmoid };
+%    >> Activations = { @tanh , @sigmoid };
+%    >> Dervatives = { @diff_tanh , @diff_sigmoid };
 %    >> Digits = [ 0 1 2 3 4 5 6 7 8 9 ];
 %    >> Config = [ 784 100 10 ];
-%    >> Max_iterations = 1000;
-%    >> Eta = 0.7;
+%    >> Max_iterations = 200;
+%    >> Eta = 2;
 %    >> Result = mnist_NN( Digits, Config, Activations, Dervatives, Max_iterations, Eta )
 
 %加载训练数据和测试数据
