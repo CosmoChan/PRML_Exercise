@@ -8,17 +8,17 @@ activations = [ {[]} , activations ];         %ÊäÈë²ãÃ»ÓÐ¼¤»îº¯Êý£¬¼ÓÈë¿ÕÔª°ûÕ¼Î
 
 L = length( W );                              %»ñÈ¡²»º¬Êä³ö²ãµÄ²ãÊýL£¬Ôò¹²ÓÐL+1²ã
 
-Z = X;                                        %È¡µÚÒ»²ãµÄµ¥ÔªÊä³ö¾ØÕó Z=X
+A = X;                                        %È¡µÚÒ»²ãµÄµ¥ÔªÊä³ö¾ØÕó A=X
 
 for l = 1 : L                                 %Ç°Ïò´«²¥
     
-    A = bsxfun( @plus , Z * W{ l } , b{ l }); %½« l ²ãµÄµ¥ÔªÊä³ö¾ØÕó´«²¥µ½µÚ l+1 ²ã
+    Z = bsxfun( @plus , A * W{ l } , b{ l }); %½« l ²ãµÄµ¥ÔªÊä³ö¾ØÕó´«²¥µ½µÚ l+1 ²ã
     
-    Z = activations{ l + 1 }( A );            %ÓÃµÚ l+1 ²ãµÄ¼¤»îº¯Êý´¦Àí µÚ l+1 ²ãµÄµ¥ÔªÊäÈë¾ØÕó
+    A = activations{ l + 1 }( Z );            %ÓÃµÚ l+1 ²ãµÄ¼¤»îº¯Êý´¦Àí µÚ l+1 ²ãµÄµ¥ÔªÊäÈë¾ØÕó
         
 end
 
-Y = Z;                                        %×îºóÒ»²ãµÄµ¥ÔªÊä³ö¾ØÕó¾ÍÊÇÍøÂçµÄÊä³ö½á¹û
+Y = A;                                        %×îºóÒ»²ãµÄµ¥ÔªÊä³ö¾ØÕó¾ÍÊÇÍøÂçµÄÊä³ö½á¹û
 
 end
 

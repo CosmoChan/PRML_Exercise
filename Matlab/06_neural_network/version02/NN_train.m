@@ -19,8 +19,8 @@ eta = eta / N;                        %将梯度下降步长除以样本大小N
 activations = [ {[]} , activations ]; %由于输入层不设置激活函数，前面添加空元胞以占位
 derivatives = [ {[]} , derivatives ]; %同上
 
-A = cell( L , 1 );                    %存放各层的单元输入矩阵，其中第一个仅用来占位
-Z = cell( L , 1 );                    %存放各层的单元激活输出矩阵
+Z = cell( L , 1 );                    %存放各层的单元输入矩阵，其中第一个仅用来占位
+A = cell( L , 1 );                    %存放各层的单元激活输出矩阵
 Delta = cell( L , 1 );                %存放各层的残差矩阵，其中第一个仅用来占位
 errors = zeros( max_iterations , 1 ); %设置数组errors，用于记录每次的迭代的损失函数值
                                       
@@ -31,7 +31,7 @@ for l = 1 : L-1                       %初始化各层参数 W b
     b{ l } = 0.1 * randn( 1 , config( l + 1 ) );
 end
 
-Z{ 1 } = X;                           %设置第一层单元的输出矩阵 Z 为 X
+A{ 1 } = X;                           %设置第一层单元的输出矩阵 A 为 X
 
 for iterations = 1 : max_iterations   %开始迭代，完成指定次数之后跳出循环
 
@@ -39,21 +39,21 @@ for iterations = 1 : max_iterations   %开始迭代，完成指定次数之后跳出循环
 
     for l = 1 : L-1                           %从1到L-1层，进行前向传播
         
-        A{ l + 1 } = bsxfun( @plus , Z{ l } * W{ l } , b{ l } );
+        Z{ l + 1 } = bsxfun( @plus , A{ l } * W{ l } , b{ l } );
         
-        Z{ l + 1 } = activations{ l + 1 }( A{ l + 1 } );
+        A{ l + 1 } = activations{ l + 1 }( Z{ l + 1 } );
         
-    end                               %网络输出值为 Y := Z{ L }
+    end                               %网络输出值为 Y := A{ L }
     
-    Delta{ L } = derivatives{ L }( A{ L } ) .* ( Z{ L } - T );%计算最后一层的残差矩阵
+    Delta{ L } = derivatives{ L }( Z{ L } ) .* ( A{ L } - T );%计算最后一层的残差矩阵
     
-    errors( iterations ) = sum(sum(( Z{ L } - T ).^2 )) / ( 2 * N );  %计算损失函数
-    
+    errors( iterations ) = sum(sum(( A{ L } - T ).^2 )) / ( 2 * N );  %计算误差平方和损失函数
+                                                        %对于回归问题，使用误差平方和，分类问题，则使用交叉熵
     errors( iterations )                      %输出损失函数
     
     for l = L-1 : -1 : 1                      %从第L-1到第1层，进行误差反向传播
         
-        Gradient_W = Z{ l }' * Delta{ l + 1 };         %计算第l层系数矩阵 W 的梯度
+        Gradient_W = A{ l }' * Delta{ l + 1 };         %计算第l层系数矩阵 W 的梯度
         
         Gradient_b = ones( 1 , N ) * Delta{ l + 1 };   %计算第l层系数向量 b 的梯度
         
@@ -63,7 +63,7 @@ for iterations = 1 : max_iterations   %开始迭代，完成指定次数之后跳出循环
 
         if l ~= 1                              %如果l不是第一层，那么计算该层的残差矩阵
             
-            Delta{ l } = derivatives{ l }( A{ l } ) .* ( Delta{ l + 1 } * W{ l }' );
+            Delta{ l } = derivatives{ l }( Z{ l } ) .* ( Delta{ l + 1 } * W{ l }' );
             
         end
         
