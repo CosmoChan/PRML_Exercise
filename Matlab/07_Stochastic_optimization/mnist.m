@@ -32,8 +32,7 @@ test.Y = OneOfK(test.Y);
 % 预测测试数据,10*10000
 Y_pred = nn_te(test.X, arg);
 
-% 计算准确率accuracy，准确率在87.12%左右，时间4.89s左右。
-%如果想减少时间，可以适当提高学习速率alpha，并且减少迭代次数iteration
+% 计算准确率accuracy，准确率在87%以上
 accuracy=1 - sum(sum(abs(test.Y - Y_pred)))/(2 * size(test.Y,2));
 toc
 
