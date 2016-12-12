@@ -10,12 +10,12 @@ function mnist_NN_MinibatchGD
 % 
 % 术语：
 %    Gradient Descent   ：梯度下降
-%    batch GD  		    ：批量梯度下降，batch size等于训练集大小
+%    batch GD           ：批量梯度下降，batch size等于训练集大小
 %    mini-batch GD      ：小批量梯度下降，batch size介于1和训练集大小之间
 %    Stochastic GD(SGD) ：随机梯度下降，batch size等于1
 %    batch size         ：批大小，在每个iteration中从batch(训练集)中取出的mini-batch(训练子集)的大小。
-%    iteration 			：利用一个mini-batch进行一次训练，称为一个iteration(迭代)
-%    epoch  			：当batch中每个数据都进行了一次训练后，称为一个epoch
+%    iteration          ：利用一个mini-batch进行一次训练，称为一个iteration(迭代)
+%    epoch              ：当batch中每个数据都进行了一次训练后，称为一个epoch
 %
 % 配置参数：
 %    digits 是一个数字的向量，包含进行分类的目标数字

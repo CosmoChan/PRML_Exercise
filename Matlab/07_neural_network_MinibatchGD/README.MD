@@ -23,7 +23,7 @@
 
  Stochastic GD(SGD) : 随机梯度下降，batch size等于1
 
- batch size         ：意为批大小，在每个iteration中从batch(训练集)中取出的mini-batch(训练子集)的大小。
+ batch size         ：批大小，在每个iteration中从batch(训练集)中取出的mini-batch(训练子集)的大小。
 
  iteration 			：利用一个mini-batch进行一次训练，称为一个iteration(迭代)
  
