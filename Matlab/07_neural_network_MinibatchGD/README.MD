@@ -14,10 +14,17 @@
  由于小批量的方法具有一定的随机性，计算的损失函数值不稳定。可以尝试取最近n次的平均值来估计
 
  术语：
+
  Gradient Descent   : 梯度下降
+
  batch GD  		    ：批量梯度下降，batch size等于训练集大小
+
  mini-batch GD      : 小批量梯度下降，batch size介于1和训练集大小之间
+
  Stochastic GD(SGD) : 随机梯度下降，batch size等于1
+
  batch size         ：意为批大小，在每个iteration中从batch(训练集)中取出的mini-batch(训练子集)的大小。
+
  iteration 			：利用一个mini-batch进行一次训练，称为一个iteration(迭代)
+ 
  epoch  			：当batch中每个数据都进行了一次训练后，称为一个epoch
