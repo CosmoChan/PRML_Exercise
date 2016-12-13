@@ -1,6 +1,6 @@
 function [ sample , origin_position ] = max_sampling( X , sampling_size )
-% 最大池化，返回池化结果以及最大值位置
-% 示例 [ max_value , max_position ] = max_sampling( ones( 1000 , 1000 , 123 ) , 2 )
+% max_sampling( ones( 1000 , 1000 , 123 ) , 2 )
+% 修正版
 
 [ ROWS , COLUMNS , N ] = size( X );
 
@@ -27,8 +27,9 @@ sample = reshape( sample , rows , columns , N );
 
 P = zeros( s , sampling_size^2 , N );
 
-for i = 1 : s
-    P( i , position( i , 1 , : ) , : ) = 1;
+
+for i = 1 : k
+    P( : , i , : ) = position( : , : , : ) == i;
 end
 
 origin_position = zeros(size(X));
