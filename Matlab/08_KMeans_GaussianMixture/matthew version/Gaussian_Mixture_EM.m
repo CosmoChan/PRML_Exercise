@@ -76,7 +76,7 @@ for iterations = 1 : max_iterations
         delta = bsxfun( @minus , X , MU( k , : ) );                             %首先计算各个观测与第k类均值向量的差矩阵
         
         SIGMA( : , : , k ) = bsxfun( @times , delta' , GAMMA( : , k )' ) * delta / N_k( k );
-                          %等价于 delta' * diag( GAMMA( : , k )' ) * delta / %N_k( k )        
+                          %等价于 delta' * diag( GAMMA( : , k )' ) * delta / N_k( k )        
     end
 
 end
