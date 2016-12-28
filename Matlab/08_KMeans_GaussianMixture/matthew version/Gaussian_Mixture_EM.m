@@ -15,7 +15,7 @@ function [ GAMMA , MU , SIGMA , PI , LogLikehood ] = Gaussian_Mixture_EM( X , K 
 
 [ N , ~ ] = size( X );                                                          %获取样本大小N
 
-[ MU , SIGMA , PI ] = GM_initialization( X , K , threshold );                   %用K-means算法初始化参数
+[ MU , SIGMA , PI ] = GM_initialization( X , K , max_iterations );              %用K-means算法初始化参数
 
 P = zeros( N , K );                                                             %创建一个矩阵，P(n,k)表示第n个观测属于类别k的概率
 
