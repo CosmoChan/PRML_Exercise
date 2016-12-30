@@ -11,7 +11,7 @@ function image = image_segmentation( image , K , alpha , max_iterations )
 
 [ height , width , d ] = size( image );                    %获取图像高度、宽度、颜色通道数
 
-[ x , y ] = meshgrid( 1 : height , 1 : width );            %设置一个网格，给图像每个像素设置一个坐标(x,y)
+[ x , y ] = meshgrid( 1 : width , 1 : height );            %设置一个网格，给图像每个像素设置一个坐标(x,y)
 
 X = double( image );                                       %将图像由uint8格式转换为double格式
 

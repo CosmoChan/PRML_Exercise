@@ -31,22 +31,26 @@ while changed == 1 && iterations < max_iterations           %µ±µü´ú´ïµ½ÉÏÏÞ»òÕß¾
         %¼ÆËãx_nµ½K¸öÀà±ðµÄ¾ùÖµÏòÁ¿µÄÅ·À­¾àÀë£¬Çó×îÐ¡Õß£¬½«x_n»®·ÖÖÁ¸ÃÀà
         %Èç¹ûx_nÀà±ð·¢Éú±ä¶¯£¬ÄÇÃ´¸üÐÂ¸÷ÀàµÄ¾ùÖµÏòÁ¿£¬²¢ÇÒ½«changedÐÞ¸ÄÎª1
         
+        delta = bsxfun( @minus , means , X( n , : ) );
         
+        distance = sum( delta.^2 , 2 );
         
+        [ ~ , new_label ] = min( distance );    
         
-        
-        
-        
+        if new_label ~= labels( n )
+            
+            old_label = labels( n );
+            
+            labels( n ) = new_label;
+            
+            means( old_label , : ) = mean( X( labels == old_label , : ) , 1 );
+            
+            means( new_label , : ) = mean( X( labels == new_label , : ) , 1 );
+            
+            changed = 1;
+            
+        end    
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
         %----------------------------------------------------
     end
 end

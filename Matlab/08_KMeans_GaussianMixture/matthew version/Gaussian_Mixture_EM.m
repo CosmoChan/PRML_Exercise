@@ -31,7 +31,7 @@ for iterations = 1 : max_iterations
             %首先利用第k类的均值向量MU(k,:)、协方差矩阵SIGMA(:,:,k)，来计算第k个高斯分布在x_n处的概率密度值 N( x_n | MU_k , SIGMA_k )，
             %然后乘上第k类的先验概率pi_k，请help mvnpdf，也可以根据公式自己编写
             
-            P( n , k ) =          
+            P( n , k ) = PI( k ) * mvnpdf( X( n , : ) , MU( k , : ) , SIGMA( : , : , k ) );         
             
             %-------------------------------------------------------                      
         end
@@ -58,13 +58,14 @@ for iterations = 1 : max_iterations
     %更新各类的均值矩阵MU，每行是一个类别，每列是一个维度
     %这3个计算都可以尝试使用一行代码完成（共3行） 
     
+    N_k = sum( GAMMA , 1 );
+    % N_k = sum( GAMMA , 1 )';
     
+    PI = N_k' / N;
+    % PI = N_k / N;
     
-    
-    
-    
-    
-    
+    MU = bsxfun( @rdivide , GAMMA' * X , N_k' );    
+    % MU = bsxfun( @rdivide , GAMMA' * X , N_k );
     
     %-------------------------------------------------------
     
